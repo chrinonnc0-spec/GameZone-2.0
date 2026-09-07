@@ -67,15 +67,19 @@ app.get("/api/news", async (req, res) => {
 app.get("/api/evenements", async (req, res) => {
   try {
 
-    // Aucun événement inventé.
-    // Les événements seront ajoutés uniquement
-    // lorsqu'une source officielle fiable sera vérifiée.
-
-    const evenements = [];
+    const evenements = [
+      {
+        title: "RLCS World Championship 2026",
+        description: "Championnat du monde officiel de Rocket League.",
+        date: "15 septembre - 20 septembre 2026",
+        location: "Fort Worth, Texas",
+        url: "https://www.rocketleague.com/competitive/schedule"
+      }
+    ];
 
     res.json({
       verified: true,
-      source: "Sources officielles des éditeurs",
+      source: "Rocket League - source officielle",
       events: evenements
     });
 
