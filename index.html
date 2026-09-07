@@ -1420,6 +1420,142 @@ closeModal();
    DEMARRAGE
 ===================================================== */
 
+
+ 
+/* =====================================================
+   EVENEMENTS GAMEZONE
+===================================================== */
+async function loadEvenements(){
+
+  const list = document.getElementById("evenements-list");
+
+  list.innerHTML = `
+    <div class="loading">
+      🔄 Vérification des événements...
+    </div>
+  `;
+
+  try{
+
+    const response = await fetch(
+      "https://gamezone-2-0.onrender.com/api/evenements"
+    );
+
+    if(!response.ok){
+      throw new Error("Serveur indisponible");
+    }
+
+    const data = await response.json();
+
+    if(!data.verified){
+      throw new Error("Source non vérifiée");
+    }
+
+    const events = data.events || [];
+
+    if(!events.length){
+
+      list.innerHTML = `
+        <div class="info-card">
+
+          <div class="info-icon">
+            📅
+          </div>
+
+          <div class="info-title">
+            Aucun événement vérifié
+          </div>
+
+          <div class="info-text">
+            GameZone n'a trouvé aucun événement
+            gaming vérifié pour le moment.
+          </div>
+
+          <div class="info-meta">
+
+            <span class="badge green">
+              ✅ Vérification active
+            </span>
+
+            <span class="badge">
+              🌐 Source officielle
+            </span>
+
+          </div>
+
+        </div>
+      `;
+
+      return;
+    }
+
+    list.innerHTML = events.map(event => `
+
+      <div class="info-card">
+
+        <div class="info-icon">
+          🎮
+        </div>
+
+        <div class="info-title">
+          ${escapeHTML(event.title || "Événement gaming")}
+        </div>
+
+        <div class="info-text">
+          ${escapeHTML(event.description || "Aucune description disponible.")}
+        </div>
+
+        <div class="info-meta">
+
+          <span class="badge green">
+            📅 ${escapeHTML(event.date || "Date non précisée")}
+          </span>
+
+          <span class="badge">
+            🌐 Source officielle
+          </span>
+q
+        </div>
+
+        ${
+          event.url
+          ? `
+            <a
+              class="event-link"
+              href="${escapeHTML(event.url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Voir l'événement →
+            </a>
+          `
+          : ""
+        }
+
+      </div>
+
+    `).join("");
+
+  }catch(error){
+
+    console.error(error);
+
+    list.innerHTML = `
+      <div class="error">
+
+        ❌ Impossible de charger les événements.
+
+        <br><br>
+
+        Le serveur GameZone est temporairement
+        indisponible.
+
+      </div>
+    `;
+
+  }
+
+  }
 renderAll();
 
 </script>
