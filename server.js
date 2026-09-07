@@ -63,6 +63,32 @@ app.get("/api/news", async (req, res) => {
   }
 });
 
+// API des événements gaming
+app.get("/api/evenements", async (req, res) => {
+  try {
+
+    // Aucun événement inventé.
+    // Les événements seront ajoutés uniquement
+    // lorsqu'une source officielle fiable sera vérifiée.
+
+    const evenements = [];
+
+    res.json({
+      verified: true,
+      source: "Sources officielles des éditeurs",
+      events: evenements
+    });
+
+  } catch (error) {
+
+    console.error("Erreur événements :", error);
+
+    res.status(500).json({
+      error: "Impossible de récupérer les événements."
+    });
+  }
+});
+
 // Démarrage du serveur
 app.listen(PORT, () => {
   console.log(`🎮 GameZone Server démarré sur le port ${PORT}`);
