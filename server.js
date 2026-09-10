@@ -7,24 +7,36 @@ const path = require("path");
 const app = express();
 
 const PORT = process.env.PORT || 3000;
-const NEWS_API_KEY = process.env.NEWS_API_KEY;
+
+// =====================================================
+// CONFIGURATION
+// =====================================================
 
 app.use(cors());
+app.use(express.json());
 
-// Servir les fichiers de GameZone 2.0
+// Servir GameZone 2.0
 app.use(express.static(__dirname));
 
-// Afficher le site GameZone 2.0
+// =====================================================
+// ACCUEIL
+// =====================================================
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// API des actualités gaming
+// =====================================================
+// ACTUALITÉS GAMING — NEWSAPI
+// =====================================================
+
 app.get("/api/news", async (req, res) => {
   try {
+    const NEWS_API_KEY = process.env.NEWS_API_KEY;
+
     if (!NEWS_API_KEY) {
       return res.status(500).json({
-        error: "Clé API NewsAPI non configurée sur le serveur."
+        error: "Clé NEWS_API_KEY non configurée."
       });
     }
 
@@ -33,7 +45,8 @@ app.get("/api/news", async (req, res) => {
 
     const url =
       "https://newsapi.org/v2/everything" +
-      "?q=" + encodeURIComponent(query) +
+      "?q=" +
+      encodeURIComponent(query) +
       "&language=en" +
       "&sortBy=publishedAt" +
       "&pageSize=20";
@@ -55,7 +68,7 @@ app.get("/api/news", async (req, res) => {
     res.json(data);
 
   } catch (error) {
-    console.error("Erreur serveur :", error);
+    console.error("Erreur NewsAPI :", error);
 
     res.status(500).json({
       error: "Impossible de récupérer les actualités."
@@ -63,24 +76,44 @@ app.get("/api/news", async (req, res) => {
   }
 });
 
-// API des événements gaming
+// =====================================================
+// ÉVÉNEMENTS GAMING
+// =====================================================
+//
+// Cette route ne fabrique aucun événement.
+// Les événements vérifiés peuvent être ajoutés dans
+// EVENT_SOURCES lorsqu'une source officielle est disponible.
+//
+// Pour l'instant, on renvoie une liste vide plutôt que
+// d'afficher de fausses informations.
+// =====================================================
+
 app.get("/api/evenements", async (req, res) => {
+
   try {
 
-    const evenements = [
-      {
-        title: "RLCS World Championship 2026",
-        description: "Championnat du monde officiel de Rocket League.",
-        date: "15 septembre - 20 septembre 2026",
-        location: "Fort Worth, Texas",
-        url: "https://www.rocketleague.com/competitive/schedule"
-      }
-    ];
+    const evenements = [];
+
+    /*
+      Exemple de structure à utiliser lorsqu'un événement
+      est vérifié :
+
+      evenements.push({
+        titre: "Nom officiel",
+        jeu: "Nom du jeu",
+        date: "2026-09-20",
+        lieu: "Online",
+        organisateur: "Organisateur officiel",
+        description: "Description vérifiée",
+        source: "https://site-officiel.com"
+      });
+    */
 
     res.json({
       verified: true,
-      source: "Rocket League - source officielle",
-      events: evenements
+      source: "Sources officielles GameZone",
+      count: evenements.length,
+      evenements: evenements
     });
 
   } catch (error) {
@@ -88,12 +121,99 @@ app.get("/api/evenements", async (req, res) => {
     console.error("Erreur événements :", error);
 
     res.status(500).json({
-      error: "Impossible de récupérer les événements."
+      verified: false,
+      error: "Impossible de charger les événements."
     });
+
   }
+
 });
 
-// Démarrage du serveur
+// =====================================================
+// CONCOURS GAMING
+// =====================================================
+//
+// IMPORTANT : aucun concours inventé.
+//
+// Un concours doit être vérifié avant d'être ajouté.
+// =====================================================
+
+app.get("/api/concours", async (req, res) => {
+
+  try {
+
+    const concours = [];
+
+    /*
+      Exemple de structure pour un concours vérifié :
+
+      concours.push({
+        titre: "Nom officiel du concours",
+        organisateur: "Organisateur officiel",
+        recompense: "Récompense officiellement annoncée",
+        dateLimite: "2026-10-01",
+        conditions: "Conditions officielles",
+        source: "https://site-officiel.com"
+      });
+    */
+
+    res.json({
+      verified: true,
+      source: "Sources officielles GameZone",
+      count: concours.length,
+      concours: concours
+    });
+
+  } catch (error) {
+
+    console.error("Erreur concours :", error);
+
+    res.status(500).json({
+      verified: false,
+      error: "Impossible de charger les concours."
+    });
+
+  }
+
+});
+
+// =====================================================
+// TEST DU SERVEUR
+// =====================================================
+
+app.get("/api/status", (req, res) => {
+
+  res.json({
+    project: "GameZone 2.0",
+    status: "online",
+    server: "Node.js / Express",
+    events: "/api/evenements",
+    contests: "/api/concours",
+    news: "/api/news"
+  });
+
+});
+
+// =====================================================
+// ERREUR 404
+// =====================================================
+
+app.use((req, res) => {
+
+  res.status(404).json({
+    error: "Page ou API introuvable."
+  });
+
+});
+
+// =====================================================
+// DÉMARRAGE
+// =====================================================
+
 app.listen(PORT, () => {
-  console.log(`🎮 GameZone Server démarré sur le port ${PORT}`);
+
+  console.log(
+    `🎮 GameZone 2.0 démarré sur le port ${PORT}`
+  );
+
 });
