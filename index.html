@@ -1,550 +1,709 @@
-<!DOCTYPE html>  <html lang="fr">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>GameZone 2.0</title>  <style>  
-:root{  
-  --bg:#0f172a;  
-  --card:#1e293b;  
-  --dark:#090d16;  
-  --accent:#22c55e;  
-  --text:#f8fafc;  
-  --muted:#94a3b8;  
-  --border:#334155;  
-  --danger:#ef4444;  
-  --gold:#facc15;  
-}  
-  
-*{  
-  box-sizing:border-box;  
-  margin:0;  
-  padding:0;  
-  font-family:system-ui,sans-serif;  
-}  
-  
-body{  
-  background:var(--bg);  
-  color:var(--text);  
-  padding-bottom:85px;  
-}  
-  
-header{  
-  position:sticky;  
-  top:0;  
-  z-index:100;  
-  background:var(--dark);  
-  padding:15px;  
-  border-bottom:1px solid var(--border);  
-}  
-  
-.logo{  
-  font-size:24px;  
-  font-weight:900;  
-  color:var(--accent);  
-  margin-bottom:12px;  
-}  
-  
-.search-box input{  
-  width:100%;  
-  padding:13px;  
-  border-radius:12px;  
-  border:1px solid var(--border);  
-  background:var(--card);  
-  color:white;  
-  outline:none;  
-  font-size:15px;  
-}  
-  
-main{  
-  max-width:1000px;  
-  margin:auto;  
-  padding:16px;  
-}  
-  
-.page{  
-  display:none;  
-}  
-  
-.page.active{  
-  display:block;  
-}  
-  
-.section-title{  
-  font-size:21px;  
-  margin-bottom:16px;  
-  border-left:4px solid var(--accent);  
-  padding-left:9px;  
-}  
-  
-.grid{  
-  display:grid;  
-  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));  
-  gap:12px;  
-}  
-  
-/* CARTES JEUX / CONSOLES */  
-  
-.card{  
-  background:var(--card);  
-  border:1px solid var(--border);  
-  border-radius:12px;  
-  overflow:hidden;  
-  position:relative;  
-  cursor:pointer;  
-  transition:.2s;  
-}  
-  
-.card:hover{  
-  transform:translateY(-2px);  
-}  
-  
-.card-img-container{  
-  height:165px;  
-  background:#334155;  
-}  
-  
-.card-img{  
-  width:100%;  
-  height:100%;  
-  object-fit:cover;  
-}  
-  
-.card-body{  
-  padding:10px;  
-}  
-  
-.card-tag{  
-  color:var(--accent);  
-  font-size:11px;  
-  font-weight:bold;  
-  text-transform:uppercase;  
-  margin-bottom:4px;  
-}  
-  
-.card-title{  
-  font-size:15px;  
-  font-weight:bold;  
-  margin-bottom:5px;  
-}  
-  
-.card-desc{  
-  color:var(--muted);  
-  font-size:12px;  
-  line-height:1.4;  
-}  
-  
-.fav-btn{  
-  position:absolute;  
-  top:7px;  
-  left:7px;  
-  z-index:5;  
-  width:30px;  
-  height:30px;  
-  border:0;  
-  border-radius:50%;  
-  background:rgba(0,0,0,.65);  
-  color:white;  
-  font-size:17px;  
-  cursor:pointer;  
-}  
-  
-.fav-btn.active{  
-  color:var(--danger);  
-}  
-  
-/* ACTUALITES */  
-  
-.news-card{  
-  background:var(--card);  
-  border:1px solid var(--border);  
-  border-radius:14px;  
-  overflow:hidden;  
-  margin-bottom:14px;  
-}  
-  
-.news-image{  
-  width:100%;  
-  height:190px;  
-  object-fit:cover;  
-  background:#334155;  
-}  
-  
-.news-content{  
-  padding:14px;  
-}  
-  
-.news-source{  
-  color:var(--accent);  
-  font-size:12px;  
-  font-weight:bold;  
-}  
-  
-.news-title{  
-  font-size:18px;  
-  margin:7px 0;  
-}  
-  
-.news-description{  
-  color:var(--muted);  
-  font-size:14px;  
-  line-height:1.5;  
-}  
-  
-.news-date{  
-  color:#64748b;  
-  font-size:11px;  
-  margin-top:9px;  
-}  
-  
-.news-link{  
-  display:inline-block;  
-  margin-top:12px;  
-  padding:9px 13px;  
-  border-radius:8px;  
-  background:var(--accent);  
-  color:#052e16;  
-  text-decoration:none;  
-  font-weight:bold;  
-  font-size:13px;  
-}  
-  
-/* CONCOURS / EVENEMENTS */  
-  
-.info-card{  
-  background:var(--card);  
-  border:1px solid var(--border);  
-  border-radius:14px;  
-  padding:16px;  
-  margin-bottom:14px;  
-}  
-  
-.info-icon{  
-  font-size:32px;  
-  margin-bottom:8px;  
-}  
-  
-.info-title{  
-  font-size:18px;  
-  font-weight:bold;  
-  margin-bottom:8px;  
-}  
-  
-.info-text{  
-  color:var(--muted);  
-  line-height:1.5;  
-  font-size:14px;  
-}  
-  
-.info-meta{  
-  margin-top:12px;  
-  display:flex;  
-  flex-wrap:wrap;  
-  gap:7px;  
-}  
-  
-.badge{  
-  background:#0f172a;  
-  border:1px solid var(--border);  
-  padding:6px 9px;  
-  border-radius:8px;  
-  font-size:11px;  
-  color:var(--muted);  
-}  
-  
-.badge.green{  
-  color:var(--accent);  
-}  
-  
-.badge.gold{  
-  color:var(--gold);  
-}  
-  
-.event-link{  
-  display:inline-block;  
-  margin-top:12px;  
-  padding:9px 13px;  
-  border-radius:8px;  
-  background:var(--accent);  
-  color:#052e16;  
-  text-decoration:none;  
-  font-weight:bold;  
-  font-size:13px;  
-}  
-  
-/* CHARGEMENT / ERREUR */  
-  
-.loading{  
-  text-align:center;  
-  color:var(--muted);  
-  padding:30px 10px;  
-}  
-  
-.error{  
-  background:#451a1a;  
-  border:1px solid #7f1d1d;  
-  border-radius:10px;  
-  padding:15px;  
-  color:#fecaca;  
-  line-height:1.5;  
-}  
-  
-.empty{  
-  color:var(--muted);  
-  text-align:center;  
-  padding:30px 10px;  
-  grid-column:1/-1;  
-}  
-  
-/* MODAL */  
-  
-.modal{  
-  display:none;  
-  position:fixed;  
-  inset:0;  
-  background:rgba(0,0,0,.85);  
-  z-index:200;  
-  align-items:center;  
-  justify-content:center;  
-  padding:16px;  
-}  
-  
-.modal-content{  
-  width:100%;  
-  max-width:520px;  
-  max-height:90vh;  
-  overflow:auto;  
-  background:var(--card);  
-  border:1px solid var(--accent);  
-  border-radius:14px;  
-  padding:18px;  
-  position:relative;  
-}  
-  
-.modal-img{  
-  width:100%;  
-  height:230px;  
-  object-fit:cover;  
-  border-radius:10px;  
-  margin-bottom:12px;  
-}  
-  
-.close-btn{  
-  position:absolute;  
-  top:10px;  
-  right:12px;  
-  width:34px;  
-  height:34px;  
-  border:0;  
-  border-radius:50%;  
-  background:rgba(0,0,0,.7);  
-  color:white;  
-  font-size:23px;  
-  cursor:pointer;  
-}  
-  
-/* NAVIGATION */  
-  
-nav{  
-  position:fixed;  
-  bottom:0;  
-  left:0;  
-  right:0;  
-  z-index:100;  
-  display:flex;  
-  justify-content:space-around;  
-  background:var(--dark);  
-  border-top:1px solid var(--border);  
-  padding:8px 0;  
-  overflow-x:auto;  
-}  
-  
-.nav-btn{  
-  min-width:65px;  
-  background:none;  
-  border:0;  
-  color:var(--muted);  
-  font-size:10px;  
-  display:flex;  
-  flex-direction:column;  
-  align-items:center;  
-  gap:3px;  
-  cursor:pointer;  
-}  
-  
-.nav-btn.active{  
-  color:var(--accent);  
-  font-weight:bold;  
-}  
-</style>  </head>  <body>  <header>  <div class="logo">  
-🎮 GameZone 2.0  
-</div>  <div class="search-box">  <input
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GameZone 2.0</title>
+
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --dark:#090d16;
+  --accent:#22c55e;
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --border:#334155;
+  --danger:#ef4444;
+  --gold:#facc15;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:system-ui,sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  padding-bottom:85px;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:100;
+  background:var(--dark);
+  padding:15px;
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+  color:var(--accent);
+  margin-bottom:12px;
+}
+
+.search-box input{
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:var(--card);
+  color:white;
+  outline:none;
+  font-size:15px;
+}
+
+main{
+  max-width:1000px;
+  margin:auto;
+  padding:16px;
+}
+
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.section-title{
+  font-size:21px;
+  margin-bottom:16px;
+  border-left:4px solid var(--accent);
+  padding-left:9px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:12px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-2px);
+}
+
+.card-img-container{
+  height:165px;
+  background:#172033;
+}
+
+.card-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+.card-body{
+  padding:10px;
+}
+
+.card-tag{
+  color:var(--accent);
+  font-size:11px;
+  font-weight:bold;
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+.card-title{
+  font-size:15px;
+  font-weight:bold;
+  margin-bottom:5px;
+}
+
+.card-desc{
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.4;
+}
+
+.fav-btn{
+  position:absolute;
+  top:7px;
+  left:7px;
+  z-index:5;
+  width:30px;
+  height:30px;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.65);
+  color:white;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.fav-btn.active{
+  color:var(--danger);
+}
+
+.news-card,
+.info-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  margin-bottom:14px;
+}
+
+.news-content,
+.info-content{
+  padding:14px;
+}
+
+.news-image{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+}
+
+.news-source{
+  color:var(--accent);
+  font-size:12px;
+  font-weight:bold;
+}
+
+.news-title{
+  font-size:18px;
+  margin:7px 0;
+}
+
+.news-description,
+.info-text{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.5;
+}
+
+.news-date{
+  color:#64748b;
+  font-size:11px;
+  margin-top:9px;
+}
+
+.news-link,
+.event-link{
+  display:inline-block;
+  margin-top:12px;
+  padding:9px 13px;
+  border-radius:8px;
+  background:var(--accent);
+  color:#052e16;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:13px;
+}
+
+.info-card{
+  padding:16px;
+}
+
+.info-icon{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.info-title{
+  font-size:18px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.info-meta{
+  margin-top:12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+}
+
+.badge{
+  background:#0f172a;
+  border:1px solid var(--border);
+  padding:6px 9px;
+  border-radius:8px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.badge.green{
+  color:var(--accent);
+}
+
+.badge.gold{
+  color:var(--gold);
+}
+
+.loading{
+  text-align:center;
+  color:var(--muted);
+  padding:30px 10px;
+}
+
+.error{
+  background:#451a1a;
+  border:1px solid #7f1d1d;
+  border-radius:10px;
+  padding:15px;
+  color:#fecaca;
+  line-height:1.5;
+}
+
+.empty{
+  color:var(--muted);
+  text-align:center;
+  padding:30px 10px;
+  grid-column:1/-1;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  z-index:200;
+  align-items:center;
+  justify-content:center;
+  padding:16px;
+}
+
+.modal-content{
+  width:100%;
+  max-width:520px;
+  max-height:90vh;
+  overflow:auto;
+  background:var(--card);
+  border:1px solid var(--accent);
+  border-radius:14px;
+  padding:18px;
+  position:relative;
+}
+
+.modal-img{
+  width:100%;
+  height:230px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+
+.close-btn{
+  position:absolute;
+  top:10px;
+  right:12px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:rgba(0,0,0,.7);
+  color:white;
+  font-size:23px;
+  cursor:pointer;
+}
+
+nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-around;
+  background:var(--dark);
+  border-top:1px solid var(--border);
+  padding:8px 0;
+  overflow-x:auto;
+}
+
+.nav-btn{
+  min-width:65px;
+  background:none;
+  border:0;
+  color:var(--muted);
+  font-size:10px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:3px;
+  cursor:pointer;
+}
+
+.nav-btn.active{
+  color:var(--accent);
+  font-weight:bold;
+}
+
+@media(max-width:500px){
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .card-img-container{
+    height:145px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+🎮 GameZone 2.0
+</div>
+
+<div class="search-box">
+<input
 type="text"
 id="searchInput"
 placeholder="🔎 Rechercher un jeu ou une console..."
-oninput="handleSearch()"
+oninput="handleSearch()">
+</div>
 
-> 
+</header>
 
-</div>  </header>  <main>  <!-- ================= ACCUEIL ================= -->  <section id="page-accueil" class="page active">  <h2 class="section-title">  
-🔥 À la une  
-</h2>  <div class="grid" id="accueil-grid"></div>  </section>  <!-- ================= JEUX ================= -->  <section id="page-jeux" class="page">  <h2 class="section-title">  
-🎮 Jeux vidéo  
-</h2>  <div class="grid" id="jeux-grid"></div>  </section>  <!-- ================= ACTUALITES ================= -->  <section id="page-actualites" class="page">  <h2 class="section-title">  
-📰 Actualités gaming  
-</h2>  <div id="news-status" class="loading">  
-🔄 Chargement des actualités...  
-</div>  <div id="news-grid"></div>  </section>  <!-- ================= CONCOURS ================= -->  <section id="page-concours" class="page">  <h2 class="section-title">  
-🏆 Concours gaming  
-</h2>  <div id="concours-list">  <div class="info-card">  <div class="info-icon">  
-🏆  
-</div>  <div class="info-title">  
-Concours vérifiés  
-</div>  <div class="info-text">  
-GameZone affichera ici les concours gaming  
-réellement vérifiés : récompenses, organisateur,  
-date limite et lien officiel de participation.  
-</div>  <div class="info-meta">  <span class="badge gold">  
-🔎 Vérification nécessaire  
-</span>  <span class="badge">  
-🌐 Source officielle  
-</span>  </div>  </div>  </div>  </section>  <!-- ================= EVENEMENTS ================= -->  <section id="page-evenements" class="page">  <h2 class="section-title">  
-📅 Événements gaming  
-</h2>  <div id="evenements-list">  <div class="info-card">  <div class="info-icon">  
-🎮  
-</div>  <div class="info-title">  
-Événements gaming  
-</div>  <div class="info-text">  
-GameZone affichera ici les événements réels :  
-tournois, compétitions, salons, annonces et  
-événements officiels de jeux vidéo.  
-</div>  <div class="info-meta">  <span class="badge green">  
-📅 Date vérifiée  
-</span>  <span class="badge">  
-🌐 Source officielle  
-</span>  </div>  </div>  </div>  </section>  <!-- ================= FAVORIS ================= -->  <section id="page-favs" class="page">  <h2 class="section-title">  
-❤️ Mes favoris  
-</h2>  <div class="grid" id="favs-grid"></div>  </section>  <!-- ================= CONSOLES ================= -->  <section id="page-consoles" class="page">  <h2 class="section-title">  
-🕹️ Consoles  
-</h2>  <div class="grid" id="consoles-grid"></div>  </section>  <!-- ================= RECHERCHE ================= -->  <section id="page-search" class="page">  <h2 class="section-title">  
-🔎 Résultats  
-</h2>  <div class="grid" id="search-grid"></div>  </section>  </main>  <!-- ================= NAVIGATION ================= -->  <nav>  <button
-class="nav-btn active"
-onclick="switchTab('accueil',this)"
+<main>
 
-> 
+<section id="page-accueil" class="page active">
 
+<h2 class="section-title">
+🔥 À la une
+</h2>
+
+<div class="grid" id="accueil-grid"></div>
+
+</section>
+
+
+<section id="page-jeux" class="page">
+
+<h2 class="section-title">
+🎮 Jeux vidéo
+</h2>
+
+<div class="grid" id="jeux-grid"></div>
+
+</section>
+
+
+<section id="page-actualites" class="page">
+
+<h2 class="section-title">
+📰 Actualités gaming
+</h2>
+
+<div id="news-status" class="loading">
+🔄 Chargement des actualités...
+</div>
+
+<div id="news-grid"></div>
+
+</section>
+
+
+<section id="page-concours" class="page">
+
+<h2 class="section-title">
+🏆 Concours gaming
+</h2>
+
+<div id="concours-list">
+
+<div class="info-card">
+
+<div class="info-icon">
+🏆
+</div>
+
+<div class="info-title">
+Concours vérifiés
+</div>
+
+<div class="info-text">
+GameZone affichera ici les concours gaming
+réellement vérifiés : récompenses, organisateur,
+date limite et lien officiel de participation.
+</div>
+
+<div class="info-meta">
+
+<span class="badge gold">
+🔎 Vérification nécessaire
+</span>
+
+<span class="badge">
+🌐 Source officielle
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="page-evenements" class="page">
+
+<h2 class="section-title">
+📅 Événements gaming
+</h2>
+
+<div id="evenements-list">
+
+<div class="info-card">
+
+<div class="info-icon">
+🎮
+</div>
+
+<div class="info-title">
+Événements gaming
+</div>
+
+<div class="info-text">
+GameZone affichera ici les événements réels :
+tournois, compétitions, salons, annonces et
+événements officiels de jeux vidéo.
+</div>
+
+<div class="info-meta">
+
+<span class="badge green">
+📅 Date vérifiée
+</span>
+
+<span class="badge">
+🌐 Source officielle
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="page-favs" class="page">
+
+<h2 class="section-title">
+❤️ Mes favoris
+</h2>
+
+<div class="grid" id="favs-grid"></div>
+
+</section>
+
+
+<section id="page-consoles" class="page">
+
+<h2 class="section-title">
+🕹️ Consoles
+</h2>
+
+<div class="grid" id="consoles-grid"></div>
+
+</section>
+
+
+<section id="page-search" class="page">
+
+<h2 class="section-title">
+🔎 Résultats
+</h2>
+
+<div class="grid" id="search-grid"></div>
+
+</section>
+
+</main>
+
+
+<nav>
+
+<button class="nav-btn active"
+onclick="switchTab('accueil',this)">
 🏠
 <span>Accueil</span>
 </button>
 
-<button
-class="nav-btn"
-onclick="switchTab('jeux',this)"
-
-> 
-
+<button class="nav-btn"
+onclick="switchTab('jeux',this)">
 🎮
 <span>Jeux</span>
 </button>
 
-<button
-class="nav-btn"
-onclick="switchTab('actualites',this);loadNews()"
-
-> 
-
+<button class="nav-btn"
+onclick="switchTab('actualites',this);loadNews()">
 📰
 <span>Actualités</span>
 </button>
 
-<button
-class="nav-btn"
-onclick="switchTab('concours',this)"
-
-> 
-
+<button class="nav-btn"
+onclick="switchTab('concours',this)">
 🏆
 <span>Concours</span>
 </button>
 
-<button
-class="nav-btn"
-onclick="switchTab('evenements',this)"
-
-> 
-
+<button class="nav-btn"
+onclick="switchTab('evenements',this)">
 📅
 <span>Événements</span>
 </button>
 
-<button
-class="nav-btn"
-onclick="switchTab('favs',this)"
-
-> 
-
+<button class="nav-btn"
+onclick="switchTab('favs',this)">
 ❤️
 <span>Favoris</span>
 </button>
 
-<button
-class="nav-btn"
-onclick="switchTab('consoles',this)"
-
-> 
-
+<button class="nav-btn"
+onclick="switchTab('consoles',this)">
 🕹️
 <span>Consoles</span>
 </button>
 
-</nav>  <!-- ================= MODAL ================= -->  <div class="modal" id="modal">  <div class="modal-content">  <button
-class="close-btn"
-onclick="closeModal()"
+</nav>
 
-> 
 
+<div class="modal" id="modal">
+
+<div class="modal-content">
+
+<button class="close-btn"
+onclick="closeModal()">
 ×
 </button>
 
-<div id="modal-body"></div>  </div>  </div>  <script>  
-  
-/* =====================================================  
-   CONFIGURATION  
-===================================================== */  
-  
-/*  
-   IMPORTANT :  
-  
-   La clé API NE DOIT PAS être placée ici.  
-  
-   Le site appellera ton serveur :  
-  
-   /api/news  
-  
-   Le serveur gardera la clé secrète.  
-*/  
-  
-  
-/* =====================================================  
-   IMAGE DE SECOURS  
-===================================================== */  
-  
-const fallbackImg =  
-"https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800";  
-  
-  
-/* =====================================================  
-   BASE DE JEUX  
-===================================================== */  
-  
-const db = {  
-  
+<div id="modal-body"></div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   IMAGES INTÉGRÉES
+===================================================== */
+
+function makeImage(title,emoji){
+
+const svg = `
+<svg xmlns="http://www.w3.org/2000/svg"
+width="800"
+height="500"
+viewBox="0 0 800 500">
+
+<defs>
+
+<linearGradient id="g"
+x1="0"
+y1="0"
+x2="1"
+y2="1">
+
+<stop offset="0%"
+stop-color="#0f172a"/>
+
+<stop offset="100%"
+stop-color="#166534"/>
+
+</linearGradient>
+
+</defs>
+
+<rect width="800"
+height="500"
+fill="url(#g)"/>
+
+<circle
+cx="680"
+cy="90"
+r="120"
+fill="#22c55e"
+opacity=".15"/>
+
+<circle
+cx="120"
+cy="420"
+r="150"
+fill="#22c55e"
+opacity=".10"/>
+
+<text
+x="400"
+y="210"
+text-anchor="middle"
+font-size="100">
+${emoji}
+</text>
+
+<text
+x="400"
+y="330"
+text-anchor="middle"
+font-family="Arial"
+font-size="42"
+font-weight="bold"
+fill="white">
+${title}
+</text>
+
+<text
+x="400"
+y="375"
+text-anchor="middle"
+font-family="Arial"
+font-size="20"
+fill="#94a3b8">
+GAMEZONE 2.0
+</text>
+
+</svg>
+`;
+
+return "data:image/svg+xml;charset=UTF-8," +
+encodeURIComponent(svg);
+
+}
+
+
+/* =====================================================
+   BASE DE JEUX
+===================================================== */
+
+const db = {
+
 jeux:[
 
 {
 id:1,
 name:"GTA V",
 cat:"Action",
-image:"https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V_cover_art.jpg",
+image:makeImage("GTA V","🎮"),
 desc:"Explorez Los Santos et accomplissez des missions et des braquages."
 },
 
@@ -552,7 +711,7 @@ desc:"Explorez Los Santos et accomplissez des missions et des braquages."
 id:2,
 name:"God of War Ragnarök",
 cat:"Action",
-image:"https://upload.wikimedia.org/wikipedia/en/e/ee/God_of_War_Ragnar%C3%B6k_cover.jpg",
+image:makeImage("God of War Ragnarök","⚔️"),
 desc:"Suivez Kratos et Atreus dans une aventure inspirée de la mythologie nordique."
 },
 
@@ -560,7 +719,7 @@ desc:"Suivez Kratos et Atreus dans une aventure inspirée de la mythologie nordi
 id:3,
 name:"Zelda Breath of the Wild",
 cat:"Aventure",
-image:"https://upload.wikimedia.org/wikipedia/en/c/c6/The_Legend_of_Zelda_Breath_of_the_Wild.jpg",
+image:makeImage("Zelda BOTW","🗡️"),
 desc:"Explorez Hyrule dans une grande aventure en monde ouvert."
 },
 
@@ -568,7 +727,7 @@ desc:"Explorez Hyrule dans une grande aventure en monde ouvert."
 id:4,
 name:"Call of Duty Black Ops 6",
 cat:"FPS",
-image:"https://upload.wikimedia.org/wikipedia/en/2/22/Call_of_Duty_Black_Ops_6_cover_art.jpg",
+image:makeImage("Call of Duty BO6","🔫"),
 desc:"Découvrez une campagne et des combats multijoueurs intenses."
 },
 
@@ -576,7 +735,7 @@ desc:"Découvrez une campagne et des combats multijoueurs intenses."
 id:5,
 name:"EA Sports FC",
 cat:"Sports",
-image:"https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800",
+image:makeImage("EA Sports FC","⚽"),
 desc:"Le football virtuel avec de nombreuses équipes et compétitions."
 },
 
@@ -584,7 +743,7 @@ desc:"Le football virtuel avec de nombreuses équipes et compétitions."
 id:6,
 name:"Minecraft",
 cat:"Sandbox",
-image:"https://upload.wikimedia.org/wikipedia/en/5/51/Minecraft_cover_art.png",
+image:makeImage("Minecraft","⛏️"),
 desc:"Construisez, explorez et survivez dans un monde généré."
 },
 
@@ -592,7 +751,7 @@ desc:"Construisez, explorez et survivez dans un monde généré."
 id:7,
 name:"Rocket League",
 cat:"Sports",
-image:"https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800",
+image:makeImage("Rocket League","🚗"),
 desc:"Du football spectaculaire avec des voitures."
 },
 
@@ -600,7 +759,7 @@ desc:"Du football spectaculaire avec des voitures."
 id:8,
 name:"Asphalt",
 cat:"Course",
-image:"https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=800",
+image:makeImage("Asphalt","🏎️"),
 desc:"Des courses automobiles rapides et spectaculaires."
 }
 
@@ -612,7 +771,7 @@ consoles:[
 id:101,
 name:"PlayStation 5",
 brand:"Sony",
-image:"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=800",
+image:makeImage("PlayStation 5","🎮"),
 desc:"Console nouvelle génération avec SSD ultra rapide."
 },
 
@@ -620,7 +779,7 @@ desc:"Console nouvelle génération avec SSD ultra rapide."
 id:102,
 name:"PlayStation 4",
 brand:"Sony",
-image:"https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=800",
+image:makeImage("PlayStation 4","🎮"),
 desc:"Console de génération précédente avec une grande bibliothèque de jeux."
 },
 
@@ -628,7 +787,7 @@ desc:"Console de génération précédente avec une grande bibliothèque de jeux
 id:103,
 name:"Xbox Series X",
 brand:"Microsoft",
-image:"https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=800",
+image:makeImage("Xbox Series X","🟩"),
 desc:"Console Xbox très puissante destinée aux jeux nouvelle génération."
 },
 
@@ -636,496 +795,518 @@ desc:"Console Xbox très puissante destinée aux jeux nouvelle génération."
 id:104,
 name:"Nintendo Switch",
 brand:"Nintendo",
-image:"https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=800",
+image:makeImage("Nintendo Switch","🎮"),
 desc:"Console hybride permettant de jouer à la maison ou en mode portable."
 }
 
 ]
-  
-  
-/* =====================================================  
-   FAVORIS  
-===================================================== */  
-  
-let favorites =  
-JSON.parse(  
-localStorage.getItem("gz_favs")  
-) || [];  
-  
-  
-function toggleFav(id,event){  
-  
-event.stopPropagation();  
-  
-if(favorites.includes(id)){  
-  
-favorites =  
-favorites.filter(x => x !== id);  
-  
-}else{  
-  
-favorites.push(id);  
-  
-}  
-  
-localStorage.setItem(  
-"gz_favs",  
-JSON.stringify(favorites)  
-);  
-  
-renderAll();  
-  
-}  
-  
-  
-/* =====================================================  
-   CREATION CARTE  
-===================================================== */  
-  
-function createCard(item){  
-  
-const isFav =  
-favorites.includes(item.id);  
-  
-return `  
-  
-<div  
-class="card"  
-onclick='openModal(${JSON.stringify(item)})'  
->  
-  
-<button  
-class="fav-btn ${isFav ? "active":""}"  
-onclick="toggleFav(${item.id},event)"  
->  
-♥  
-</button>  
-  
-<div class="card-img-container">  
-  
-<img  
-src="${item.image}"  
-class="card-img"  
-onerror="this.src='${fallbackImg}'"  
->  
-  
-</div>  
-  
-<div class="card-body">  
-  
-<div class="card-tag">  
-${item.cat || item.brand}  
-</div>  
-  
-<div class="card-title">  
-${item.name}  
-</div>  
-  
-<div class="card-desc">  
-${item.desc}  
-</div>  
-  
-</div>  
-  
-</div>  
-  
-`;  
-  
-}  
-  
-  
-/* =====================================================  
-   AFFICHAGE  
-===================================================== */  
-  
-function renderAll(){  
-  
-document.getElementById("jeux-grid").innerHTML =  
-db.jeux.map(createCard).join("");  
-  
-  
-document.getElementById("consoles-grid").innerHTML =  
-db.consoles.map(createCard).join("");  
-  
-  
-document.getElementById("accueil-grid").innerHTML =  
-db.jeux.slice(0,6).map(createCard).join("");  
-  
-  
-const all =  
-[  
-...db.jeux,  
-...db.consoles  
-];  
-  
-  
-const favItems =  
-all.filter(  
-item => favorites.includes(item.id)  
-);  
-  
-  
-const favGrid =  
-document.getElementById("favs-grid");  
-  
-  
-if(favItems.length){  
-  
-favGrid.innerHTML =  
-favItems.map(createCard).join("");  
-  
-}else{  
-  
-favGrid.innerHTML = `  
-  
-<div class="empty">  
-  
-❤️ Aucun favori pour le moment.  
-  
-<br><br>  
-  
-Clique sur le cœur d'une carte.  
-  
-</div>  
-  
-`;  
-  
-}  
-  
-}  
-  
-  
-/* =====================================================  
-   NAVIGATION  
-===================================================== */  
-  
-function switchTab(tab,btn){  
-  
-document  
-.querySelectorAll(".page")  
-.forEach(page =>  
-page.classList.remove("active")  
-);  
-  
-  
-document  
-.querySelectorAll(".nav-btn")  
-.forEach(button =>  
-button.classList.remove("active")  
-);  
-  
-  
-const page =  
-document.getElementById(  
-"page-"+tab  
-);  
-  
-  
-if(page){  
-  
-page.classList.add("active");  
-  
-}  
-  
-  
-if(btn){  
-  
-btn.classList.add("active");  
-  
-}  
-  
-  
-window.scrollTo({  
-top:0,  
-behavior:"smooth"  
-});  
-  
-}  
-  
-  
-/* =====================================================  
-   RECHERCHE  
-===================================================== */  
-  
-function handleSearch(){  
-  
-const q =  
-document  
-.getElementById("searchInput")  
-.value  
-.toLowerCase()  
-.trim();  
-  
-  
-if(!q){  
-  
-switchTab(  
-"accueil",  
-document.querySelector(".nav-btn")  
-);  
-  
-return;  
-  
-}  
-  
-  
-const all =  
-[  
-...db.jeux,  
-...db.consoles  
-];  
-  
-  
-const results =  
-all.filter(item => {  
-  
-const text = `  
-  
-${item.name}  
-${item.cat || ""}  
-${item.brand || ""}  
-${item.desc}  
-  
-`.toLowerCase();  
-  
-return text.includes(q);  
-  
-});  
-  
-  
-document.getElementById(  
-"search-grid"  
-).innerHTML =  
-  
-results.length  
-  
-? results.map(createCard).join("")  
-  
-: `  
-  
-<div class="empty">  
-  
-😕 Aucun résultat trouvé.  
-  
-</div>  
-  
-`;  
-  
-  
-switchTab("search",null);  
-  
-}  
-  
-  
-/* =====================================================  
-   ACTUALITES  
-===================================================== */  
-  
-let newsLoaded = false;  
-  
-  
-async function loadNews(){  
-  
-if(newsLoaded){  
-  
-return;  
-  
-}  
-  
-  
-const status =  
-document.getElementById(  
-"news-status"  
-);  
-  
-  
-const grid =  
-document.getElementById(  
-"news-grid"  
-);  
-  
-  
-status.innerHTML =  
-"🔄 Connexion au serveur GameZone...";  
-  
-  
-try{  
-  
-/*  
-   Le navigateur appelle TON SERVEUR.  
-  
-   Exemple :  
-  
-   https://ton-serveur.onrender.com/api/news  
-  
-   Pour l'instant on utilise :  
-  
-   /api/news  
-  
-   Quand le site et le serveur seront hébergés  
-   correctement, on changera cette adresse.  
-*/  
-  
-const response =  
-await fetch("/api/news");  
-  
-  
-if(!response.ok){  
-  
-throw new Error(  
-"Serveur indisponible"  
-);  
-  
-}  
-  
-  
-const data =  
-await response.json();  
-  
-  
-if(  
-!data.articles ||  
-!data.articles.length  
-){  
-  
-status.innerHTML =  
-"😕 Aucune actualité disponible.";  
-  
-return;  
-  
-}  
-  
-  
-grid.innerHTML =  
-data.articles  
-.filter(article => article.title)  
-.map(createNewsCard)  
-.join("");  
-  
-  
-status.innerHTML =  
-"🟢 Actualités mises à jour";  
-  
-  
-newsLoaded = true;  
-  
-  
-}catch(error){  
-  
-console.error(error);  
-  
-  
-status.innerHTML = `  
-  
-<div class="error">  
-  
-<strong>  
-❌ Les actualités ne sont pas encore connectées.  
-</strong>  
-  
-<br><br>  
-  
-Le serveur GameZone doit d'abord être  
-mis en ligne et connecté à l'API.  
-  
-<br><br>  
-  
-Nous allons faire cette connexion  
-après l'envoi du projet sur GitHub.  
-  
-</div>  
-  
-`;  
-  
-}  
-  
-}  
-  
-  
-/* =====================================================  
-   CARTE ACTUALITE  
-===================================================== */  
-  
-function createNewsCard(article){  
-  
-const image =  
-article.urlToImage ||  
-fallbackImg;  
-  
-  
-const source =  
-article.source?.name ||  
-"Source inconnue";  
-  
-  
-const date =  
-article.publishedAt  
-  
-? new Date(  
-article.publishedAt  
-).toLocaleString("fr-FR")  
-  
-: "";  
-  
-  
-const description =  
-article.description ||  
-"Aucune description disponible.";  
-  
-  
-return `  
-  
-<article class="news-card">  
-  
-<img  
-class="news-image"  
-src="${image}"  
-onerror="this.src='${fallbackImg}'"  
->  
-  
-  
-<div class="news-content">  
-  
-<div class="news-source">  
-  
-📰  
-${escapeHTML(source)}  
-  
-</div>  
-  
-  
-<h3 class="news-title">  
-  
-${escapeHTML(article.title)}  
-  
-</h3>  
-  
-  
-<p class="news-description">  
-  
-${escapeHTML(description)}  
-  
-</p>  
-  
-  
-<div class="news-date">  
-  
-📅 ${date}  
-  
-</div>  
-  
-  
-<a  
-class="news-link"  
-href="${article.url}"  
-target="_blank"  
-rel="noopener noreferrer"  
->  
-  
-Lire l'article →  
-  
-</a>  
-  
-</div>  
-  
-</article>  
+
+};
+
+
+/* =====================================================
+   FAVORIS
+===================================================== */
+
+let favorites =
+JSON.parse(
+localStorage.getItem("gz_favs")
+) || [];
+
+
+function toggleFav(id,event){
+
+event.stopPropagation();
+
+if(favorites.includes(id)){
+
+favorites =
+favorites.filter(x => x !== id);
+
+}else{
+
+favorites.push(id);
+
+}
+
+localStorage.setItem(
+"gz_favs",
+JSON.stringify(favorites)
+);
+
+renderAll();
+
+}
+
+
+/* =====================================================
+   CARTE
+===================================================== */
+
+function createCard(item){
+
+const isFav =
+favorites.includes(item.id);
+
+return `
+
+<div class="card"
+onclick='openModal(${JSON.stringify(item)})'>
+
+<button
+class="fav-btn ${isFav ? "active":""}"
+onclick="toggleFav(${item.id},event)">
+♥
+</button>
+
+<div class="card-img-container">
+
+<img
+src="${item.image}"
+class="card-img"
+alt="${item.name}">
+
+</div>
+
+<div class="card-body">
+
+<div class="card-tag">
+${item.cat || item.brand}
+</div>
+
+<div class="card-title">
+${item.name}
+</div>
+
+<div class="card-desc">
+${item.desc}
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   AFFICHAGE
+===================================================== */
+
+function renderAll(){
+
+document.getElementById("jeux-grid").innerHTML =
+db.jeux.map(createCard).join("");
+
+document.getElementById("consoles-grid").innerHTML =
+db.consoles.map(createCard).join("");
+
+document.getElementById("accueil-grid").innerHTML =
+db.jeux.slice(0,6).map(createCard).join("");
+
+const all=[
+...db.jeux,
+...db.consoles
+];
+
+const favItems =
+all.filter(
+item => favorites.includes(item.id)
+);
+
+const favGrid =
+document.getElementById("favs-grid");
+
+if(favItems.length){
+
+favGrid.innerHTML =
+favItems.map(createCard).join("");
+
+}else{
+
+favGrid.innerHTML=`
+
+<div class="empty">
+
+❤️ Aucun favori pour le moment.
+
+<br><br>
+
+Clique sur le cœur d'une carte.
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function switchTab(tab,btn){
+
+document
+.querySelectorAll(".page")
+.forEach(page =>
+page.classList.remove("active")
+);
+
+document
+.querySelectorAll(".nav-btn")
+.forEach(button =>
+button.classList.remove("active")
+);
+
+const page =
+document.getElementById(
+"page-"+tab
+);
+
+if(page){
+
+page.classList.add("active");
+
+}
+
+if(btn){
+
+btn.classList.add("active");
+
+}
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =====================================================
+   RECHERCHE
+===================================================== */
+
+function handleSearch(){
+
+const q =
+document
+.getElementById("searchInput")
+.value
+.toLowerCase()
+.trim();
+
+if(!q){
+
+switchTab(
+"accueil",
+document.querySelector(".nav-btn")
+);
+
+return;
+
+}
+
+const all=[
+...db.jeux,
+...db.consoles
+];
+
+const results =
+all.filter(item=>{
+
+const text=`
+
+${item.name}
+${item.cat || ""}
+${item.brand || ""}
+${item.desc}
+
+`.toLowerCase();
+
+return text.includes(q);
+
+});
+
+document.getElementById(
+"search-grid"
+).innerHTML=
+
+results.length
+
+? results.map(createCard).join("")
+
+:`
+
+<div class="empty">
+
+😕 Aucun résultat trouvé.
+
+</div>
+
+`;
+
+switchTab("search",null);
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function openModal(item){
+
+document.getElementById(
+"modal-body"
+).innerHTML=`
+
+<img
+src="${item.image}"
+class="modal-img"
+alt="${item.name}">
+
+<h2>
+${item.name}
+</h2>
+
+<p style="color:var(--accent);margin:8px 0;">
+${item.cat || item.brand}
+</p>
+
+<p style="color:var(--muted);line-height:1.6;">
+${item.desc}
+</p>
+
+`;
+
+document.getElementById(
+"modal"
+).style.display="flex";
+
+}
+
+
+function closeModal(){
+
+document.getElementById(
+"modal"
+).style.display="none";
+
+}
+
+
+document.getElementById("modal")
+.addEventListener("click",function(e){
+
+if(e.target===this){
+
+closeModal();
+
+}
+
+});
+
+
+/* =====================================================
+   ACTUALITÉS
+===================================================== */
+
+let newsLoaded=false;
+
+async function loadNews(){
+
+if(newsLoaded){
+
+return;
+
+}
+
+const status =
+document.getElementById(
+"news-status"
+);
+
+const grid =
+document.getElementById(
+"news-grid"
+);
+
+status.innerHTML=
+"🔄 Connexion au serveur GameZone...";
+
+try{
+
+const response =
+await fetch("/api/news");
+
+if(!response.ok){
+
+throw new Error(
+"Serveur indisponible"
+);
+
+}
+
+const data =
+await response.json();
+
+if(
+!data.articles ||
+!data.articles.length
+){
+
+status.innerHTML=
+"😕 Aucune actualité disponible.";
+
+return;
+
+}
+
+grid.innerHTML =
+data.articles
+.filter(article=>article.title)
+.map(createNewsCard)
+.join("");
+
+status.innerHTML=
+"🟢 Actualités mises à jour";
+
+newsLoaded=true;
+
+}catch(error){
+
+console.error(error);
+
+status.innerHTML=`
+
+<div class="error">
+
+<strong>
+❌ Les actualités ne sont pas disponibles.
+</strong>
+
+<br><br>
+
+Vérifie que ton serveur Render
+et ta clé NEWS_API_KEY fonctionnent.
+
+</div>
+
+`;
+
+}
+
+}
+
+
+/* =====================================================
+   CARTE ACTUALITÉ
+===================================================== */
+
+function escapeHTML(text){
+
+return String(text || "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function createNewsCard(article){
+
+const image =
+article.urlToImage ||
+makeImage("Gaming","📰");
+
+const source =
+article.source?.name ||
+"Source inconnue";
+
+const date =
+article.publishedAt
+
+? new Date(
+article.publishedAt
+).toLocaleString("fr-FR")
+
+: "";
+
+const description =
+article.description ||
+"Aucune description disponible.";
+
+return `
+
+<article class="news-card">
+
+<img
+class="news-image"
+src="${image}"
+onerror="this.src='${makeImage("Gaming","📰")}'"
+alt="Actualité gaming">
+
+<div class="news-content">
+
+<div class="news-source">
+
+📰
+${escapeHTML(source)}
+
+</div>
+
+<h3 class="news-title">
+
+${escapeHTML(article.title)}
+
+</h3>
+
+<p class="news-description">
+
+${escapeHTML(description)}
+
+</p>
+
+<div class="news-date">
+
+📅 ${date}
+
+</div>
+
+<a
+class="news-link"
+href="${article.url}"
+target="_blank"
+rel="noopener noreferrer">
+
+Lire l'article →
+
+</a>
+
+</div>
+
+</article>
+
+`;
+
+}
+
+
+/* =====================================================
+   DÉMARRAGE
+===================================================== */
+
+renderAll();
+
+</script>
+
+</body>
+</html>
