@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// API Actualités
+// API Actualités — français
 app.get("/api/news", async (req, res) => {
   try {
     if (!NEWS_API_KEY) {
@@ -29,8 +29,8 @@ app.get("/api/news", async (req, res) => {
 
     const url =
       "https://newsapi.org/v2/everything?" +
-      "q=gaming%20OR%20videogames%20OR%20PlayStation%20OR%20Xbox%20OR%20Nintendo" +
-      "&language=en" +
+      "q=gaming%20OR%20jeux%20vid%C3%A9o%20OR%20PlayStation%20OR%20Xbox%20OR%20Nintendo%20OR%20PC%20gaming" +
+      "&language=fr" +
       "&sortBy=publishedAt" +
       "&pageSize=20";
 
