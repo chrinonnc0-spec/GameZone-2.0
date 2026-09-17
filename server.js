@@ -58,10 +58,12 @@ app.get("/api/news", async (req, res) => {
 });
 
 // Route de test du serveur
-app.get("/api/status", (req, res) => {
+// API Événements
+app.get("/api/evenements", (req, res) => {
   res.json({
-    message: "🎮 GameZone 2.0 — serveur connecté",
-    status: "online"
+    verified: true,
+    source: "Sources officielles des éditeurs",
+    events: []
   });
 });
 
