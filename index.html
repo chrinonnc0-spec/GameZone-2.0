@@ -195,3 +195,38 @@ header{
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad-1);opacity:0;transition:.3s}
 .card:hover,.card:active{background:var(--card-hover);border-color:var(--border-hot);transform:translateY(-4px);box-shadow:var(--shadow-md),0 0 20px rgba(0,229,255,.12)}
 .card:hover::before,.card:active::before{opacity:1}
+.cats{display:flex;gap:9px;overflow-x:auto;padding:4px 0 12px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{
+  flex-shrink:0;display:flex;align-items:center;gap:7px;padding:9px 15px;
+  border-radius:30px;background:var(--bg-2);border:1px solid var(--border);
+  color:var(--txt-dim);font-size:.83rem;font-weight:600;cursor:pointer;transition:.25s;white-space:nowrap;
+}
+.cat.active{background:var(--grad-1);color:#fff;border-color:transparent;box-shadow:var(--shadow-glow)}
+.cat:active{transform:scale(.96)}
+
+.item{display:flex;flex-direction:column;gap:10px}
+.item-thumb{
+  width:100%;aspect-ratio:1/1;border-radius:var(--r-sm);background:var(--grad-2);
+  display:grid;place-items:center;font-size:2rem;position:relative;overflow:hidden;
+}
+.item-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.12))}
+.item-name{font-family:'Orbitron',sans-serif;font-weight:700;font-size:.85rem;letter-spacing:.3px;color:var(--txt);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.item-sub{font-size:.75rem;color:var(--txt-mute);font-weight:500}
+.fav-btn{
+  position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;
+  background:rgba(10,14,26,.7);backdrop-filter:blur(8px);border:1px solid var(--border);
+  display:grid;place-items:center;font-size:1rem;cursor:pointer;transition:.25s;z-index:2;
+}
+.fav-btn:hover{transform:scale(1.1);border-color:var(--pink)}
+.fav-btn.on{background:rgba(255,45,149,.15);border-color:var(--pink);animation:pop .4s ease}
+@keyframes pop{0%{transform:scale(.8)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+
+.news-list{display:flex;flex-direction:column;gap:12px}
+.news-card{display:flex;gap:14px;align-items:flex-start;padding:14px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--border);transition:.25s;cursor:pointer}
+.news-card:hover,.news-card:active{border-color:var(--border-hot);background:var(--card-hover);transform:translateX(4px)}
+.news-icon{width:52px;height:52px;flex-shrink:0;border-radius:12px;background:var(--grad-2);display:grid;place-items:center;font-size:1.4rem}
+.news-body{flex:1;min-width:0}
+.news-title{font-family:'Orbitron',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:5px;color:var(--txt);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-desc{font-size:.8rem;color:var(--txt-dim);font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-meta{font-size:.68rem;color:var(--txt-mute);margin-top:6px;display:flex;gap:10px;align-items:center;letter-spacing:.5px;text-transform:uppercase}
