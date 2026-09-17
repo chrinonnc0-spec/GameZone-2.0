@@ -709,20 +709,45 @@ async function loadEvents(){
   renderGames();
 }
 
-async function loadContests(){
+async function loadNews(){
   try{
-    const r = await fetch('/api/concours');
-    if(!r.ok) throw new Error('err');
-    const data = await r.json();
-    state.contests = Array.isArray(data) ? data : (data.contests || data.items || []);
-  }catch(e){
-    state.contests = [
-      {title:'Concours Minecraft', description:'Crée la meilleure map et gagne des clés.', status:'En cours', prize:'Clé Steam 20€'}
-    ];
-  }
-  renderContests();
-  renderGames();
+    const r = await fetch('/api/news', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      },
+      cache: 'no-store'
+    });
+
+    if(!r.ok){
+      throw new Error('Erreur API : ' + r.status);
     }
+
+    const data = await r.json();
+
+    // NewsAPI renvoie les actualités dans data.articles
+    state.news = Array.isArray(data.articles)
+      ? data.articles.map(article => ({
+          title: article.title || 'Actualité gaming',
+          description: article.description || 'Découvrez cette actualité gaming.',
+          source: article.source?.name || 'Source inconnue',
+          date: article.publishedAt
+            ? new Date(article.publishedAt).toLocaleDateString('fr-FR')
+            : '',
+          url: article.url || '#',
+          image: article.urlToImage || ''
+        }))
+      : [];
+
+    console.log('Actualités chargées :', state.news.length);
+
+  }catch(e){
+    console.error('Erreur chargement actualités :', e);
+    state.news = [];
+  }
+
+  renderNews();
+      }
 /* ---------- RECHERCHE ---------- */
 function initSearch(){
   const input = $('#searchInput');
