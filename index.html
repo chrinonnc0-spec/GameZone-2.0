@@ -230,3 +230,575 @@ header{
 .news-title{font-family:'Orbitron',sans-serif;font-weight:700;font-size:.88rem;margin-bottom:5px;color:var(--txt);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .news-desc{font-size:.8rem;color:var(--txt-dim);font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .news-meta{font-size:.68rem;color:var(--txt-mute);margin-top:6px;display:flex;gap:10px;align-items:center;letter-spacing:.5px;text-transform:uppercase}
+
+  .event-card{display:flex;gap:14px;align-items:center;padding:14px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--card),rgba(139,92,246,.06));border:1px solid var(--border);border-left:3px solid var(--violet);transition:.25s;cursor:pointer}
+.event-card:hover{border-left-color:var(--cyan);transform:translateX(4px)}
+.event-date{display:flex;flex-direction:column;align-items:center;background:var(--bg-2);border-radius:10px;padding:8px 10px;min-width:56px;flex-shrink:0;border:1px solid var(--border)}
+.event-date .d{font-family:'Orbitron',sans-serif;font-weight:800;font-size:1.15rem;color:var(--cyan);line-height:1}
+.event-date .m{font-size:.6rem;color:var(--txt-mute);text-transform:uppercase;letter-spacing:1px;margin-top:3px}
+.event-body{flex:1;min-width:0}
+.event-title{font-family:'Orbitron',sans-serif;font-weight:700;font-size:.85rem;margin-bottom:4px}
+.event-desc{font-size:.78rem;color:var(--txt-dim);font-weight:500}
+
+.contest-card{padding:16px;border-radius:var(--r-md);background:linear-gradient(135deg,rgba(255,184,0,.10),rgba(255,45,149,.08));border:1px solid rgba(255,184,0,.3);position:relative;overflow:hidden}
+.contest-card::before{content:'🏆';position:absolute;top:-10px;right:-10px;font-size:5rem;opacity:.08;transform:rotate(15deg)}
+.contest-status{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:8px;background:rgba(163,255,18,.15);color:var(--lime);border:1px solid rgba(163,255,18,.3)}
+.contest-title{font-family:'Orbitron',sans-serif;font-weight:700;font-size:.95rem;margin-bottom:6px;position:relative}
+.contest-desc{font-size:.8rem;color:var(--txt-dim);font-weight:500;position:relative}
+.contest-prize{margin-top:10px;font-size:.78rem;font-weight:600;color:var(--gold);position:relative}
+
+.console-card{aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(160deg,var(--card),var(--bg-2));border:1px solid var(--border);border-radius:var(--r-md);padding:12px;text-align:center;transition:.28s;cursor:pointer}
+.console-card:hover,.console-card:active{border-color:var(--border-hot);transform:translateY(-4px) scale(1.02);box-shadow:var(--shadow-md)}
+.console-emoji{font-size:1.9rem;filter:drop-shadow(0 0 10px rgba(0,229,255,.4))}
+.console-name{font-family:'Orbitron',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.3px}
+
+.dl-list{display:flex;flex-direction:column;gap:11px}
+.dl-card{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:var(--r-md);background:var(--card);border:1px solid var(--border);text-decoration:none;color:inherit;transition:.25s}
+.dl-card:hover,.dl-card:active{border-color:var(--border-hot);background:var(--card-hover);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.dl-icon{width:48px;height:48px;flex-shrink:0;border-radius:13px;display:grid;place-items:center;font-size:1.4rem;background:var(--grad-1);box-shadow:var(--shadow-glow)}
+.dl-body{flex:1;min-width:0}
+.dl-name{font-family:'Orbitron',sans-serif;font-weight:700;font-size:.85rem;margin-bottom:3px}
+.dl-sub{font-size:.74rem;color:var(--txt-mute);font-weight:500}
+.dl-arrow{color:var(--cyan);font-size:1.2rem;font-weight:700;transition:.25s}
+.dl-card:hover .dl-arrow{transform:translateX(4px)}
+
+.ad-slot{border-radius:var(--r-md);overflow:hidden;border:1px dashed rgba(255,184,0,.35);background:linear-gradient(135deg,rgba(255,184,0,.05),transparent);padding:18px;text-align:center;min-height:90px;display:grid;place-items:center;position:relative}
+.ad-label{position:absolute;top:6px;left:10px;font-size:.58rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--txt-mute);font-weight:700}
+.ad-content{color:var(--txt-dim);font-size:.85rem;font-weight:500}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(10,14,26,.92);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-top:1px solid var(--border);padding:8px 6px calc(8px + var(--safe-b));display:flex;justify-content:space-around;align-items:center;max-width:100%}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;color:var(--txt-mute);font-family:inherit;font-size:.62rem;font-weight:600;padding:6px 8px;border-radius:12px;cursor:pointer;transition:.25s;flex:1;min-width:0;letter-spacing:.2px}
+.nav-item .ico{font-size:1.25rem;line-height:1;transition:.25s}
+.nav-item.active{color:var(--cyan)}
+.nav-item.active .ico{transform:translateY(-2px) scale(1.15);filter:drop-shadow(0 0 8px rgba(0,229,255,.6))}
+.nav-item:active{transform:scale(.94)}
+
+.loader{display:flex;justify-content:center;padding:26px}
+.spinner{width:30px;height:30px;border-radius:50%;border:3px solid rgba(0,229,255,.15);border-top-color:var(--cyan);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.empty{text-align:center;padding:30px 16px;color:var(--txt-mute);font-size:.9rem;font-weight:500}
+.empty .emoji{font-size:2.4rem;display:block;margin-bottom:10px;opacity:.6}
+
+.toast{position:fixed;bottom:calc(var(--nav-h) + var(--safe-b) + 20px);left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-3);border:1px solid var(--border-hot);color:var(--txt);padding:12px 20px;border-radius:14px;font-size:.85rem;font-weight:600;z-index:300;box-shadow:var(--shadow-md);opacity:0;transition:.3s;pointer-events:none;max-width:90%;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.hidden{display:none !important}
+.view{display:none}
+.view.active{display:block;animation:fadeUp .35s ease both}
+
+.modal{position:fixed;inset:0;z-index:400;background:rgba(5,7,15,.85);backdrop-filter:blur(6px);display:none;align-items:flex-end;justify-content:center;padding:0}
+.modal.show{display:flex;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-inner{background:var(--bg-1);width:100%;max-width:560px;border-radius:22px 22px 0 0;border:1px solid var(--border);border-bottom:none;padding:20px 18px calc(24px + var(--safe-b));max-height:85vh;overflow-y:auto;animation:slideUp .3s cubic-bezier(.2,.8,.3,1)}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:none}}
+.modal-handle{width:44px;height:4px;border-radius:3px;background:var(--border);margin:0 auto 16px}
+.modal h3{font-family:'Orbitron',sans-serif;font-weight:800;font-size:1.1rem;margin-bottom:10px}
+.modal p{color:var(--txt-dim);font-size:.9rem;margin-bottom:8px}
+.modal-close{position:absolute;top:14px;right:16px;background:var(--bg-2);border:1px solid var(--border);color:var(--txt);width:34px;height:34px;border-radius:50%;font-size:1.1rem;cursor:pointer}
+</style>
+</head>
+  
+<body>
+
+<header>
+  <div class="header-top">
+    <a href="#" class="logo" onclick="switchView('accueil');return false;">
+      <span class="logo-icon">🎮</span>
+      <span>GameZone 2.0</span>
+    </a>
+    <div class="header-actions">
+      <button class="icon-btn" aria-label="Favoris" onclick="switchView('favoris')">
+        ❤️<span class="fav-count" id="favCount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">🔎</span>
+    <input type="search" id="searchInput" placeholder="Rechercher un jeu, une actu..." autocomplete="off" />
+    <button class="search-clear" id="searchClear" aria-label="Effacer">✕</button>
+  </div>
+</header>
+
+<main>
+  <section class="view active" id="view-accueil">
+    <div class="hero">
+      <span class="hero-tag">● Live 2026</span>
+      <h1>Bienvenue sur GameZone 2.0</h1>
+      <p>L'univers gaming ultime : jeux, actus, concours et événements, tout au même endroit.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n" id="statGames">0</div><div class="l">Jeux</div></div>
+        <div class="hero-stat"><div class="n" id="statNews">0</div><div class="l">Actus</div></div>
+        <div class="hero-stat"><div class="n" id="statEvents">0</div><div class="l">Événements</div></div>
+        <div class="hero-stat"><div class="n" id="statContests">0</div><div class="l">Concours</div></div>
+      </div>
+    </div>
+
+    <div class="ad-slot">
+      <span class="ad-label">Publicité</span>
+      <div class="ad-content">📢 Emplacement publicitaire — GameZone 2.0</div>
+    </div>
+
+    <div class="section" style="margin-top:26px">
+      <div class="section-head">
+        <div class="section-title"><span class="bar"></span>Jeux populaires</div>
+        <span class="section-badge">Top</span>
+      </div>
+      <div class="grid grid-3" id="homeGames"></div>
+    </div>
+
+    <div class="section">
+      <div class="section-head">
+        <div class="section-title"><span class="bar"></span>Dernières actualités</div>
+      </div>
+      <div class="news-list" id="homeNews"><div class="loader"><div class="spinner"></div></div></div>
+    </div>
+
+    <div class="ad-slot" style="margin-bottom:26px">
+      <span class="ad-label">Publicité</span>
+      <div class="ad-content">📢 Espace partenaire GameZone 2.0</div>
+    </div>
+  </section>  
+
+    <section class="view" id="view-jeux">
+    <div class="section-head" style="margin-bottom:14px">
+      <div class="section-title"><span class="bar"></span>Tous les jeux</div>
+      <span class="section-badge" id="gamesCount">0</span>
+    </div>
+    <div class="cats" id="catFilters"></div>
+    <div class="grid grid-3" id="allGames"></div>
+  </section>
+
+  <section class="view" id="view-actualites">
+    <div class="section-head" style="margin-bottom:14px">
+      <div class="section-title"><span class="bar"></span>Actualités gaming</div>
+    </div>
+    <div class="news-list" id="allNews"><div class="loader"><div class="spinner"></div></div></div>
+  </section>
+
+  <section class="view" id="view-concours">
+    <div class="section-head" style="margin-bottom:14px">
+      <div class="section-title"><span class="bar"></span>Concours en cours</div>
+    </div>
+    <div class="grid" id="allContests" style="grid-template-columns:1fr">
+      <div class="loader"><div class="spinner"></div></div>
+    </div>
+  </section>
+
+  <section class="view" id="view-evenements">
+    <div class="section-head" style="margin-bottom:14px">
+      <div class="section-title"><span class="bar"></span>Événements à venir</div>
+    </div>
+    <div class="news-list" id="allEvents"><div class="loader"><div class="spinner"></div></div></div>
+  </section>
+
+  <section class="view" id="view-favoris">
+    <div class="section-head" style="margin-bottom:14px">
+      <div class="section-title"><span class="bar"></span>Mes favoris</div>
+      <span class="section-badge" id="favBadge">0</span>
+    </div>
+    <div class="grid grid-3" id="favGrid"></div>
+    <div class="empty hidden" id="favEmpty">
+      <span class="emoji">💔</span>
+      Aucun favori pour l'instant.<br>Ajoute des jeux avec le ❤️ !
+    </div>
+  </section>
+
+  <section class="view" id="view-consoles">
+    <div class="section-head" style="margin-bottom:14px">
+      <div class="section-title"><span class="bar"></span>Consoles</div>
+    </div>
+    <div class="grid grid-3" id="consoleGrid"></div>
+  </section>
+
+  <section class="view" id="view-telechargements">
+    <div class="section-head" style="margin-bottom:14px">
+      <div class="section-title"><span class="bar"></span>Téléchargements officiels</div>
+      <span class="section-badge">Officiel</span>
+    </div>
+    <div class="dl-list" id="dlList"></div>
+    <div class="ad-slot" style="margin-top:20px">
+      <span class="ad-label">Publicité</span>
+      <div class="ad-content">📢 Téléchargez en toute sécurité</div>
+    </div>
+  </section>
+</main>
+<nav class="bottom-nav">
+  <button class="nav-item active" data-view="accueil" onclick="switchView('accueil')"><span class="ico">🏠</span><span>Accueil</span></button>
+  <button class="nav-item" data-view="jeux" onclick="switchView('jeux')"><span class="ico">🎮</span><span>Jeux</span></button>
+  <button class="nav-item" data-view="actualites" onclick="switchView('actualites')"><span class="ico">📰</span><span>Actus</span></button>
+  <button class="nav-item" data-view="concours" onclick="switchView('concours')"><span class="ico">🏆</span><span>Concours</span></button>
+  <button class="nav-item" data-view="evenements" onclick="switchView('evenements')"><span class="ico">📅</span><span>Évén.</span></button>
+  <button class="nav-item" data-view="consoles" onclick="switchView('consoles')"><span class="ico">🕹️</span><span>Consoles</span></button>
+  <button class="nav-item" data-view="telechargements" onclick="switchView('telechargements')"><span class="ico">📥</span><span>DL</span></button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-inner" style="position:relative">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+  <script>
+/* ============================================================
+   GAMEZONE 2.0 — APP LOGIC
+   ============================================================ */
+
+const GAMES_DATA = [
+  {id:'g1',name:'Fortnite',cat:'Battle Royale',emoji:'🪂',sub:'Epic Games'},
+  {id:'g2',name:'Minecraft',cat:'Aventure',emoji:'⛏️',sub:'Mojang'},
+  {id:'g3',name:'Rocket League',cat:'Sport',emoji:'🚗',sub:'Psyonix'},
+  {id:'g4',name:'Valorant',cat:'FPS',emoji:'🎯',sub:'Riot Games'},
+  {id:'g5',name:'GTA V',cat:'Action',emoji:'🚙',sub:'Rockstar'},
+  {id:'g6',name:'FIFA 26',cat:'Sport',emoji:'⚽',sub:'EA Sports'},
+  {id:'g7',name:'Call of Duty',cat:'FPS',emoji:'🔫',sub:'Activision'},
+  {id:'g8',name:'Among Us',cat:'Party',emoji:'👽',sub:'InnerSloth'},
+  {id:'g9',name:'League of Legends',cat:'MOBA',emoji:'⚔️',sub:'Riot Games'},
+  {id:'g10',name:'Apex Legends',cat:'Battle Royale',emoji:'🏹',sub:'Respawn'},
+  {id:'g11',name:'Roblox',cat:'Sandbox',emoji:'🧱',sub:'Roblox Corp'},
+  {id:'g12',name:'Clash Royale',cat:'Stratégie',emoji:'👑',sub:'Supercell'}
+];
+
+const CONSOLES_DATA = [
+  {name:'PlayStation 5', emoji:'🎮'},
+  {name:'Xbox Series X', emoji:'🕹️'},
+  {name:'Nintendo Switch', emoji:'🔴'},
+  {name:'PC Gaming', emoji:'💻'},
+  {name:'Steam Deck', emoji:'🎯'},
+  {name:'Mobile', emoji:'📱'}
+];
+
+const DOWNLOADS_DATA = [
+  {name:'Google Play Games', sub:'Jeux Android officiels', emoji:'🤖', url:'https://play.google.com/googleplaygames'},
+  {name:'Fortnite', sub:'Epic Games — Battle Royale', emoji:'🪂', url:'https://www.epicgames.com/fortnite/'},
+  {name:'Minecraft', sub:'Mojang — Site officiel', emoji:'⛏️', url:'https://www.minecraft.net/'},
+  {name:'Rocket League', sub:'Psyonix — Site officiel', emoji:'🚗', url:'https://www.rocketleague.com/'}
+];
+
+let state = {
+  currentView: 'accueil',
+  currentCat: 'Tous',
+  favorites: JSON.parse(localStorage.getItem('gz_favorites') || '[]'),
+  news: [],
+  events: [],
+  contests: [],
+  searchTerm: ''
+};
+
+const $ = (s) => document.querySelector(s);
+const $$ = (s) => document.querySelectorAll(s);
+
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+function escapeHtml(str){
+  return String(str ?? '').replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  })[c]);
+}
+
+    /* ---------- FAVORIS ---------- */
+function saveFavorites(){
+  localStorage.setItem('gz_favorites', JSON.stringify(state.favorites));
+  updateFavCount();
+}
+function isFav(id){ return state.favorites.includes(id); }
+function toggleFav(id, name){
+  const i = state.favorites.indexOf(id);
+  if(i === -1){
+    state.favorites.push(id);
+    toast(`❤️ ${name} ajouté aux favoris`);
+  } else {
+    state.favorites.splice(i,1);
+    toast(`💔 ${name} retiré des favoris`);
+  }
+  saveFavorites();
+  renderGames();
+  renderFavorites();
+}
+function updateFavCount(){
+  const n = state.favorites.length;
+  $('#favCount').textContent = n;
+  $('#favBadge').textContent = n;
+}
+
+/* ---------- NAVIGATION ---------- */
+function switchView(view){
+  state.currentView = view;
+  $$('.view').forEach(v => v.classList.remove('active'));
+  const el = document.getElementById('view-' + view);
+  if(el) el.classList.add('active');
+  $$('.nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(view === 'favoris') renderFavorites();
+}
+
+/* ---------- RENDU JEUX ---------- */
+function gameCard(g){
+  const fav = isFav(g.id);
+  return `
+    <div class="card item" onclick="openGame('${g.id}')">
+      <div class="item-thumb">
+        ${g.emoji}
+        <button class="fav-btn ${fav?'on':''}" onclick="event.stopPropagation();toggleFav('${g.id}','${escapeHtml(g.name)}')">
+          ${fav ? '❤️' : '🤍'}
+        </button>
+      </div>
+      <div class="item-name">${escapeHtml(g.name)}</div>
+      <div class="item-sub">${escapeHtml(g.sub || g.cat)}</div>
+    </div>
+  `;
+}
+
+function renderGames(){
+  const term = state.searchTerm.toLowerCase();
+  let list = GAMES_DATA.filter(g => {
+    const okCat = state.currentCat === 'Tous' || g.cat === state.currentCat;
+    const okSearch = !term ||
+      g.name.toLowerCase().includes(term) ||
+      g.cat.toLowerCase().includes(term);
+    return okCat && okSearch;
+  });
+
+  $('#homeGames').innerHTML = GAMES_DATA.slice(0,6).map(gameCard).join('');
+  $('#allGames').innerHTML = list.length
+    ? list.map(gameCard).join('')
+    : `<div class="empty" style="grid-column:1/-1"><span class="emoji">🎮</span>Aucun jeu trouvé</div>`;
+  $('#gamesCount').textContent = list.length;
+
+  $('#statGames').textContent = GAMES_DATA.length;
+  $('#statNews').textContent = state.news.length || '—';
+  $('#statEvents').textContent = state.events.length || '—';
+  $('#statContests').textContent = state.contests.length || '—';
+}
+
+function renderCatFilters(){
+  const cats = ['Tous', ...new Set(GAMES_DATA.map(g => g.cat))];
+  $('#catFilters').innerHTML = cats.map(c => `
+    <button class="cat ${c===state.currentCat?'active':''}" onclick="setCat('${c}')">${c}</button>
+  `).join('');
+}
+function setCat(c){
+  state.currentCat = c;
+  renderCatFilters();
+  renderGames();
+}
+
+function renderFavorites(){
+  const favs = GAMES_DATA.filter(g => isFav(g.id));
+  const grid = $('#favGrid');
+  const empty = $('#favEmpty');
+  if(favs.length === 0){
+    grid.innerHTML = '';
+    empty.classList.remove('hidden');
+  } else {
+    empty.classList.add('hidden');
+    grid.innerHTML = favs.map(gameCard).join('');
+  }
+}
+
+function renderConsoles(){
+  $('#consoleGrid').innerHTML = CONSOLES_DATA.map(c => `
+    <div class="console-card" onclick="toast('🕹️ ${escapeHtml(c.name)}')">
+      <div class="console-emoji">${c.emoji}</div>
+      <div class="console-name">${escapeHtml(c.name)}</div>
+    </div>
+  `).join('');
+}
+
+function renderDownloads(){
+  $('#dlList').innerHTML = DOWNLOADS_DATA.map(d => `
+    <a class="dl-card" href="${d.url}" target="_blank" rel="noopener noreferrer">
+      <div class="dl-icon">${d.emoji}</div>
+      <div class="dl-body">
+        <div class="dl-name">${escapeHtml(d.name)}</div>
+        <div class="dl-sub">${escapeHtml(d.sub)}</div>
+      </div>
+      <div class="dl-arrow">↗</div>
+    </a>
+  `).join('');
+                                   }
+    /* ---------- ACTUS / ÉVÉNEMENTS / CONCOURS ---------- */
+function newsCard(n){
+  return `
+    <div class="news-card" onclick="openNews('${escapeHtml(n.title||'')}')">
+      <div class="news-icon">📰</div>
+      <div class="news-body">
+        <div class="news-title">${escapeHtml(n.title || 'Sans titre')}</div>
+        <div class="news-desc">${escapeHtml(n.description || n.desc || '')}</div>
+        <div class="news-meta">
+          <span>${escapeHtml(n.source || 'GameZone')}</span>
+          ${n.date ? `<span>• ${escapeHtml(n.date)}</span>` : ''}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function eventCard(e){
+  const d = e.date ? new Date(e.date) : null;
+  const day = d && !isNaN(d) ? String(d.getDate()).padStart(2,'0') : '??';
+  const mon = d && !isNaN(d) ? d.toLocaleString('fr-FR',{month:'short'}) : '---';
+  return `
+    <div class="event-card" onclick="openEvent('${escapeHtml(e.title||'')}')">
+      <div class="event-date"><div class="d">${day}</div><div class="m">${mon}</div></div>
+      <div class="event-body">
+        <div class="event-title">${escapeHtml(e.title || 'Événement')}</div>
+        <div class="event-desc">${escapeHtml(e.description || e.desc || '')}</div>
+      </div>
+    </div>
+  `;
+}
+
+function contestCard(c){
+  return `
+    <div class="contest-card" onclick="openContest('${escapeHtml(c.title||'')}')">
+      <span class="contest-status">${escapeHtml(c.status || 'En cours')}</span>
+      <div class="contest-title">${escapeHtml(c.title || 'Concours')}</div>
+      <div class="contest-desc">${escapeHtml(c.description || c.desc || '')}</div>
+      ${c.prize ? `<div class="contest-prize">🎁 ${escapeHtml(c.prize)}</div>` : ''}
+    </div>
+  `;
+}
+
+function renderNews(){
+  const html = state.news.length
+    ? state.news.map(newsCard).join('')
+    : `<div class="empty"><span class="emoji">📰</span>Aucune actualité pour le moment</div>`;
+  $('#homeNews').innerHTML = html;
+  $('#allNews').innerHTML = html;
+}
+
+function renderEvents(){
+  $('#allEvents').innerHTML = state.events.length
+    ? state.events.map(eventCard).join('')
+    : `<div class="empty"><span class="emoji">📅</span>Aucun événement prévu</div>`;
+}
+
+function renderContests(){
+  $('#allContests').innerHTML = state.contests.length
+    ? state.contests.map(contestCard).join('')
+    : `<div class="empty"><span class="emoji">🏆</span>Aucun concours en cours</div>`;
+}
+
+/* ---------- APPELS API ---------- */
+async function loadNews(){
+  try{
+    const r = await fetch('/api/news');
+    if(!r.ok) throw new Error('err');
+    const data = await r.json();
+    state.news = Array.isArray(data) ? data : (data.news || data.items || []);
+  }catch(e){
+    state.news = [
+      {title:'Bienvenue sur GameZone 2.0', description:'Nouvelle version du site avec un design gaming moderne.', source:'GameZone', date:new Date().toLocaleDateString('fr-FR')}
+    ];
+  }
+  renderNews();
+  renderGames();
+}
+
+async function loadEvents(){
+  try{
+    const r = await fetch('/api/evenements');
+    if(!r.ok) throw new Error('err');
+    const data = await r.json();
+    state.events = Array.isArray(data) ? data : (data.events || data.items || []);
+  }catch(e){
+    state.events = [
+      {title:'Tournoi Fortnite', description:'Grand tournoi communautaire ce week-end.', date:new Date().toISOString()}
+    ];
+  }
+  renderEvents();
+  renderGames();
+}
+
+async function loadContests(){
+  try{
+    const r = await fetch('/api/concours');
+    if(!r.ok) throw new Error('err');
+    const data = await r.json();
+    state.contests = Array.isArray(data) ? data : (data.contests || data.items || []);
+  }catch(e){
+    state.contests = [
+      {title:'Concours Minecraft', description:'Crée la meilleure map et gagne des clés.', status:'En cours', prize:'Clé Steam 20€'}
+    ];
+  }
+  renderContests();
+  renderGames();
+    }
+/* ---------- RECHERCHE ---------- */
+function initSearch(){
+  const input = $('#searchInput');
+  const clear = $('#searchClear');
+  input.addEventListener('input', () => {
+    state.searchTerm = input.value.trim();
+    clear.classList.toggle('show', state.searchTerm.length > 0);
+    renderGames();
+    if(state.searchTerm && state.currentView !== 'jeux'){
+      switchView('jeux');
+    }
+  });
+  clear.addEventListener('click', () => {
+    input.value = '';
+    state.searchTerm = '';
+    clear.classList.remove('show');
+    renderGames();
+  });
+}
+
+/* ---------- MODALES ---------- */
+function openModal(html){
+  $('#modalContent').innerHTML = html;
+  $('#modal').classList.add('show');
+}
+function closeModal(){
+  $('#modal').classList.remove('show');
+}
+function openGame(id){
+  const g = GAMES_DATA.find(x => x.id === id);
+  if(!g) return;
+  openModal(`
+    <h3>${g.emoji} ${escapeHtml(g.name)}</h3>
+    <p><strong>Catégorie :</strong> ${escapeHtml(g.cat)}</p>
+    <p><strong>Éditeur :</strong> ${escapeHtml(g.sub || '—')}</p>
+    <p>Retrouve ce jeu dans la section Téléchargements officiels pour y accéder légalement.</p>
+  `);
+}
+function openNews(title){
+  openModal(`<h3>📰 ${escapeHtml(title)}</h3><p>Ouvre l'article complet sur le site source pour en savoir plus.</p>`);
+}
+function openEvent(title){
+  openModal(`<h3>📅 ${escapeHtml(title)}</h3><p>Rendez-vous à cet événement gaming. Reste connecté pour plus de détails.</p>`);
+}
+function openContest(title){
+  openModal(`<h3>🏆 ${escapeHtml(title)}</h3><p>Participe au concours et tente de gagner des récompenses exclusives !</p>`);
+}
+
+/* ---------- INITIALISATION ---------- */
+function init(){
+  renderCatFilters();
+  renderGames();
+  renderConsoles();
+  renderDownloads();
+  renderFavorites();
+  updateFavCount();
+  initSearch();
+
+  loadNews();
+  loadEvents();
+  loadContests();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
