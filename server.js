@@ -58,12 +58,22 @@ app.get("/api/news", async (req, res) => {
 });
 
 // Route de test du serveur
+
 // API Événements
 app.get("/api/evenements", (req, res) => {
   res.json({
     verified: true,
     source: "Sources officielles des éditeurs",
     events: []
+  });
+});
+
+// API Concours
+app.get("/api/concours", (req, res) => {
+  res.json({
+    verified: true,
+    source: "Sources officielles des éditeurs",
+    contests: []
   });
 });
 
