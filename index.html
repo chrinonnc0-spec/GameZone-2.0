@@ -454,48 +454,7 @@ header{
 </div>
   
 <script>
-async function chargerActualites() {
-  const container = document.querySelector("#newsContainer");
 
-  if (!container) return;
-
-  container.innerHTML = "📰 Chargement des actualités...";
-
-  try {
-    const response = await fetch("/api/news");
-    const data = await response.json();
-
-    if (!response.ok || !data.articles) {
-      throw new Error("Erreur API");
-    }
-
-    if (data.articles.length === 0) {
-      container.innerHTML = "📰 Aucune actualité pour le moment";
-      return;
-    }
-
-    container.innerHTML = data.articles.map(article => `
-      <article class="news-card">
-        <div class="news-content">
-          <h3>${article.title || "Actualité gaming"}</h3>
-          <p>${article.description || "Découvrez les dernières nouvelles du gaming."}</p>
-          <small>${article.source?.name || "Source gaming"}</small>
-          <br>
-          <a href="${article.url}" target="_blank" rel="noopener noreferrer">
-            Lire l'article →
-          </a>
-        </div>
-      </article>
-    `).join("");
-
-  } catch (error) {
-    console.error("Erreur actualités :", error);
-    container.innerHTML = "📰 Impossible de charger les actualités";
-  }
-}
-
-chargerActualites();
-</script>
 /* ============================================================
    GAMEZONE 2.0 — APP LOGIC
    ============================================================ */
@@ -748,17 +707,34 @@ function renderContests(){
 async function loadNews(){
   try{
     const r = await fetch('/api/news');
-    if(!r.ok) throw new Error('err');
+
+    if(!r.ok){
+      throw new Error('Erreur API');
+    }
+
     const data = await r.json();
-    state.news = Array.isArray(data) ? data : (data.news || data.items || []);
+
+    // NewsAPI place les actualités dans data.articles
+    state.news = Array.isArray(data.articles)
+      ? data.articles.map(article => ({
+          title: article.title,
+          description: article.description,
+          source: article.source?.name || 'Source inconnue',
+          date: article.publishedAt
+            ? new Date(article.publishedAt).toLocaleDateString('fr-FR')
+            : '',
+          url: article.url
+        }))
+      : [];
+
   }catch(e){
-    state.news = [
-      {title:'Bienvenue sur GameZone 2.0', description:'Nouvelle version du site avec un design gaming moderne.', source:'GameZone', date:new Date().toLocaleDateString('fr-FR')}
-    ];
+    console.error('Erreur chargement actualités :', e);
+    state.news = [];
   }
+
   renderNews();
   renderGames();
-}
+    }
 
 async function loadEvents(){
   try{
